@@ -10,7 +10,7 @@ class PlateLoader:
     def connect(self):
         if self.ser and self.ser.is_open:
             return
-        self.ser = serial.Serial(port=self.port, baudrate = 19200, timeout=15)
+        self.ser = serial.Serial(port=self.port, baudrate = 19200, timeout=5)
         time.sleep(2.0)
         self.ser.reset_input_buffer
 
@@ -38,4 +38,3 @@ if __name__ == "__main__":
     response = loader.send_command("RESET")
     print("Response: ", response)
     loader.disconnect()
-    
