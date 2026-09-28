@@ -3,8 +3,9 @@ import flask
 app = flask.Flask(__name__)
 
 @app.route('/')
-def hello_route():
-    return "Hello World"
+def handle_naked_domain():
+    return flask.redirect("/index.html")
+
 
 
 if __name__ == '__main__':
