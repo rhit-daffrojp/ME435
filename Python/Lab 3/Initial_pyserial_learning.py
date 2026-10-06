@@ -3,7 +3,7 @@ import time
 
 print("Learning Pyserial") # with pi400
 
-ser = serial.Serial(port='/dev/ttyACM0', baudrate = 19200, timeout=10)  # open serial port
+ser = serial.Serial(port='/dev/ttyUSB0', baudrate = 19200, timeout=10)  # open serial port
 time.sleep(2.0) # Necessary sometimes. :)
 
 
