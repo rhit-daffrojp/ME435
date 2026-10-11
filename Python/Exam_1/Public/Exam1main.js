@@ -22,8 +22,7 @@ function main() {
     document.querySelector("#flash").onclick = () => {
         let num = document.querySelector("#numFlashes").value;
         let per = document.querySelector("#periodMs").value;
-        // console.log(`MOVE ${startPos} to ${endPos}`);
-        sendCommand(`FLASH ${num} to ${per}`);
+        sendCommand(`FLASH ${num} ${per}`);
     };
 }
 
