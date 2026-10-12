@@ -10,11 +10,20 @@ loader = flash.Flash("/dev/ttyACM0") # TODO: Set the Port if needed.
 def handle_naked_domain():
     return flask.redirect("/index.html")
 
+@app.get("/api/<command>")
+def handle_commands(command):
+    with serial_lock:
+        response = loader.send_command(command)
+    return response
+
 @app.get("/api/led/<command>")
 def handle_led_toggle_commands(command):
     with serial_lock:
-        # response = loader.send_command(command)
-        response = loader.send_command("LED "+ command)
+        if command == "on":
+            response = loader.send_command("LED ON")
+        elif command == "off":
+            response = loader.send_command("LED OFF")
+        # response = loader.send_command("LED "+ command)
     return response
 
 @app.get("/api/flash/<numFlashes>/<periodMs>")

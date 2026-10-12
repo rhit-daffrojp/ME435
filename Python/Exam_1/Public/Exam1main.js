@@ -20,8 +20,8 @@ function main() {
     };
 
     document.querySelector("#flash").onclick = () => {
-        let num = document.querySelector("#numFlashes").value;
-        let per = document.querySelector("#periodMs").value;
+        let num = document.querySelector("#NumFlashes").value;
+        let per = document.querySelector("#PeriodMs").value;
         sendCommand(`FLASH ${num} ${per}`);
     };
 }
