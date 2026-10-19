@@ -56,11 +56,11 @@ function main() {
         let startPos = document.querySelector("#moveFrom").value;
         let endPos = document.querySelector("#moveTo").value;
         // console.log(`MOVE ${startPos} to ${endPos}`);
-        sendCommand(`MOVE ${startPos} to ${endPos}`);
+        sendCommand(`MOVE ${startPos} ${endPos}`);
     };
 
     document.querySelector("#status").onclick = () => {
-        sendCommand("LOADER STATUS");
+        sendCommand("LOADER_STATUS");
     };
 
 }
