@@ -28,4 +28,12 @@ class DriveSystem:
         self.go(speed, speed)
         time.sleep(seconds)
         self.stop()
-        
+
+    def go_straight_for_inches(self, inches, speed):
+        m = 0.5         # Edit for length 
+        B = 0
+        inches_per_second = speed * m + B
+        seconds = inches / inches_per_second
+        self.go_straight_for_seconds(seconds, speed)
+
+
