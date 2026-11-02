@@ -12,12 +12,12 @@ class App:
 
         self.mqtt_client = mh.MqttClient()
         self.mqtt_client.connect(subscription_topic_name="me435/daffrojp/#",
-                                 publish_topic_name="me435/daffrojp/#")
+                                 publish_topic_name="me435/daffrojp/to_computer")
         self.mqtt_client.callback = self.mqtt_callback
 
         self.button23 = gz.Button(23)
         self.button23.when_pressed = lambda : self.mqtt_client.send_message("button")
-        self.button25 = gz.Button(25)
+        self.button25 = gz.Button(22)
         self.button25.when_pressed = lambda : self.mqtt_client.send_message("reset")
 
     def mqtt_callback(self, message_type, message_payload):
