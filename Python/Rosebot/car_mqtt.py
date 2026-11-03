@@ -24,19 +24,19 @@ class App:
             self.robot.drive_system.set_speeds(message_payload[0], message_payload[1], message_payload[2], message_payload[3])
         if message_type == "stop":
             self.robot.drive_system.set_speeds(0, 0, 0, 0)
+        if message_type == "beep":
+            self.robot.buzzer.beep(on_time=0.1, off_time=0.3, n=2)
 
 def main():
     print("Car MQTT")
     app = App()
     try:
-        while True:
-            # Send test messages!
-            app.mqtt_client.send_message("set_speeds", [40, 40, 40, 40])
-            time.sleep(1)
-            app.mqtt_client.send_message("stop")
-            time.sleep(1)
+        # while True:
+        #     # Send test messages!
+            # app.mqtt_client.send_message("beep")
+            # time.sleep(2)
 
-        # signal.pause() # Keep the program alive but does nothing.
+        signal.pause() # Keep the program alive but does nothing.
     except KeyboardInterrupt:
         print("Goodbye!")
         app.robot.drive_system.stop()
