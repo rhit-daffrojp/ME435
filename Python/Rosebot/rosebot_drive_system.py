@@ -36,4 +36,15 @@ class DriveSystem:
         seconds = inches / inches_per_second
         self.go_straight_for_seconds(seconds, speed)
 
+    def spin_in_place_for_seconds(self, seconds, speed):
+        self.go(speed, -speed)
+        time.sleep(seconds)
+        self.stop()
+
+    def spin_in_place_for_degrees(self, degrees, speed):
+        m = 7.2         # Edit for length 
+        B = 0
+        degrees_per_second = speed * m + B
+        seconds = degrees / degrees_per_second
+        self.spin_in_place_for_seconds(seconds, speed)
 

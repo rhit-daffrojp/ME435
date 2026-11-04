@@ -167,7 +167,7 @@ def run_test_spin_in_place_for_degrees(robot: Rosebot):
         # Done: 7. Call the  spin_in_place_for_degrees  method of the   drive_system
         #  of the robot, sending it the input  degrees  and  speed.
         # -------------------------------------------------------------------------
-        robot.drive_system.spin_in_place_for_seconds(degrees, speed)
+        robot.drive_system.spin_in_place_for_degrees(degrees, speed)
 
 
 def run_test_draw_polygon(robot: Rosebot):
