@@ -42,9 +42,18 @@ class DriveSystem:
         self.stop()
 
     def spin_in_place_for_degrees(self, degrees, speed):
-        m = 7.2         # Edit for length 
+        m = 7.5         # Edit for length 
         B = 0
         degrees_per_second = speed * m + B
         seconds = degrees / degrees_per_second
         self.spin_in_place_for_seconds(seconds, speed)
 
+    def draw_polygon(self, speed, sides, inches):
+        degrees = 180-((180*(sides - 2))/sides)
+        print(degrees)
+        for i in range(sides):
+            self.go_straight_for_inches(inches, speed)
+            time.sleep(0.3)
+            self.spin_in_place_for_degrees(degrees, speed)
+            time.sleep(0.3)
+ 
