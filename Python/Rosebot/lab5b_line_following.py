@@ -1,4 +1,5 @@
 from rosebot import Rosebot
+import rosebot_sensors
 import time
 
 def main():
@@ -11,7 +12,8 @@ def main():
             print(robot.line_sensors.get_line_word())
             
             # Get ultrasonic
-            # if distance < 20 cm
+            # robot.ultrasonic.get_cm()
+            if robot.ultrasonic.get_cm() < 20:
             #   stop robot
             # else
  
