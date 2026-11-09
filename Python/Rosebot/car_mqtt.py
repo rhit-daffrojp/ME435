@@ -12,7 +12,7 @@ class App:
     def __init__(self):
 
         self.robot = Rosebot()
-        self.is_streaming = True # As a temp test, normally False
+        self.is_streaming = False
         self.mode = "none"
 
         self.mqtt_client = mh.MqttClient()
@@ -28,14 +28,30 @@ class App:
             self.robot.drive_system.set_speeds(message_payload[0], message_payload[1], message_payload[2], message_payload[3])
         if message_type == "stop":
             self.robot.drive_system.set_speeds(0, 0, 0, 0)
+        
         if message_type == "beep":
             self.robot.buzzer.beep(on_time=0.1, off_time=0.3, n=2)
+
+        if message_type == "is_streaming":
+            self.is_streaming = message_payload
+
+        if message_type == "mode":
+            self.mode = message_payload
+            if self.mode == "drive_until_wall" or self.mode == "drive_until_line":
+                self.robot.drive_system.go(20, 20)
+            if self.mode == "none":
+                self.robot.drive_system.stop()
+
 
 def main():
     print("Car MQTT")
     app = App()
     last_time_sent_s = 0
 
+    # Talking to myself:
+    time.sleep(2)
+    app.mqtt_client.send_message("is_streaming", True)
+    app.mqtt_client.send_message("mode", "drive_until_line")
 
     try:
         while True:
@@ -52,6 +68,20 @@ def main():
                     "middle:": app.robot.line_sensors.get_middle(),
                     "right:": app.robot.line_sensors.get_right()
                 })
+
+            if app.mode == "drive_until_wall":
+                # Check for wall:
+                if app.robot.ultrasonic.get_cm() < 40:
+                    app.robot.drive_system.stop()
+                    app.robot.buzzer.beep(on_time=0.1, off_time=0.1, n=3)
+                    app.mode = "none"
+
+            if app.mode == "drive_until_line":
+                # Check for line:
+                if app.robot.line_sensors.get_line_word() != "WWW":
+                    app.robot.drive_system.stop()
+                    app.robot.buzzer.beep(on_time=0.1, off_time=0.1, n=3)
+                    app.mode = "none"
 
         # signal.pause() # Keep the program alive but does nothing.
     except KeyboardInterrupt:
