@@ -17,7 +17,8 @@ class App:
 
         self.mqtt_client = mh.MqttClient()
         self.mqtt_client.connect(subscription_topic_name="me435/daffrojp/#",
-                                 publish_topic_name="me435/daffrojp/to_computer")   #use_off_campus_broker = True
+                                 publish_topic_name="me435/daffrojp/to_computer")#,
+                                # use_off_campus_broker=True)   #use_off_campus_broker = True
         self.mqtt_client.callback = self.mqtt_callback
 
     def mqtt_callback(self, message_type, message_payload):
