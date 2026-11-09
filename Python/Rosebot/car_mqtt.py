@@ -17,7 +17,8 @@ class App:
 
         self.mqtt_client = mh.MqttClient()
         self.mqtt_client.connect(subscription_topic_name="me435/daffrojp/#",
-                                 publish_topic_name="me435/daffrojp/to_computer")
+                                 publish_topic_name="me435/daffrojp/to_computer")#,
+                                # use_off_campus_broker=True)   #use_off_campus_broker = True
         self.mqtt_client.callback = self.mqtt_callback
 
     def mqtt_callback(self, message_type, message_payload):
@@ -50,8 +51,8 @@ def main():
 
     # Talking to myself:
     time.sleep(2)
-    app.mqtt_client.send_message("is_streaming", True)
-    app.mqtt_client.send_message("mode", "drive_until_line")
+    # app.mqtt_client.send_message("is_streaming", True)
+    # app.mqtt_client.send_message("mode", "drive_until_line")
 
     try:
         while True:
