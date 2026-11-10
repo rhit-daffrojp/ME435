@@ -65,14 +65,14 @@ def main():
                 last_time_sent_s = current_time_s
                 app.mqtt_client.send_message("line_sensor_reading", {
                     "timestamp": right_now.strftime("%m/%d/%Y  %H:%M:%S"),
-                    "left:": app.robot.line_sensors.get_left(),
-                    "middle:": app.robot.line_sensors.get_middle(),
-                    "right:": app.robot.line_sensors.get_right()
+                    "left": app.robot.line_sensors.get_left(),
+                    "middle": app.robot.line_sensors.get_middle(),
+                    "right": app.robot.line_sensors.get_right()
                 })
 
             if app.mode == "drive_until_wall":
                 # Check for wall:
-                if app.robot.ultrasonic.get_cm() < 40:
+                if app.robot.ultrasonic.get_cm() < 30:
                     app.robot.drive_system.stop()
                     app.robot.buzzer.beep(on_time=0.1, off_time=0.1, n=3)
                     app.mode = "none"
