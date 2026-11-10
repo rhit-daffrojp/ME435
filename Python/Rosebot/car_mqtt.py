@@ -5,8 +5,6 @@ from rosebot import Rosebot
 import time
 import datetime
 
-# Can also use this code for Exam 3 and Lab 6
-
 class App:
 
     def __init__(self):
@@ -31,32 +29,26 @@ class App:
             self.robot.drive_system.set_speeds(0, 0, 0, 0)
 
         if message_type == "left":
-            if message_payload[0] == "reverse":
+            if message_payload[0] == 0:
                 message_payload[2] = -message_payload[2]
             self.robot.drive_system.set_speeds(message_payload[2], message_payload[2], 0, 0)
             time.sleep(message_payload[1])
             self.robot.drive_system.set_speeds(0, 0, 0, 0)
 
         if message_type == "right":
-            if message_payload[0] == "reverse":
+            if message_payload[0] == 0:
                 message_payload[2] = -message_payload[2]
-            self.robot.drive_system.set_speeds(message_payload[2], message_payload[2], 0, 0)
+            self.robot.drive_system.set_speeds(0, 0, message_payload[2], message_payload[2])
             time.sleep(message_payload[1])
             self.robot.drive_system.set_speeds(0, 0, 0, 0)
         
-        
-        # if message_type == "beep":
-        #     self.robot.buzzer.beep(on_time=0.1, off_time=0.3, n=2)
-
-        # if message_type == "is_streaming":
-        #     self.is_streaming = message_payload
-
-        # if message_type == "mode":
-        #     self.mode = message_payload
-        #     if self.mode == "drive_until_wall" or self.mode == "drive_until_line":
-        #         self.robot.drive_system.go(20, 20)
-        #     if self.mode == "none":
-        #         self.robot.drive_system.stop()
+        if message_type == "both":
+            if message_payload[0] == 0:
+                message_payload[2] = -message_payload[2]
+                message_payload[3] = -message_payload[3]
+            self.robot.drive_system.set_speeds(message_payload[2], message_payload[2], message_payload[3], message_payload[3])
+            time.sleep(message_payload[1])
+            self.robot.drive_system.set_speeds(0, 0, 0, 0)
 
 
 def main():
