@@ -5,6 +5,7 @@ import mqtt_helper as mh
 from RFID_Class import RFIDScanner
 from gpiozero import OutputDevice
 from LiquidCrystalDisplay import LCD
+import random
 
 class App:
 
@@ -87,7 +88,36 @@ def main():
                         time.sleep(0.25)
                         lcd.lcd_string("Thinking...", LCD_LINE_1)
                         time.sleep(0.25)
-                    lcd.lcd_string("A in class", LCD_LINE_1)
+
+
+                    fortune1 = lambda n: {
+                        1: "We get an A",
+                        2: "Inshallah Winter",
+                        3: "Is this quarter",
+                        4: "Shoot your shot",
+                        5: "Closed mouths",
+                        6: "Yes",
+                        7: "No",
+                        8: "Homework will get",
+                        9: "This is the best",
+                        10: "Brady McCreamy"
+                    }.get(n, "Unknown fortune.")
+                    fortune2 = lambda n: {
+                        1: "on this project.",
+                        2: "Quarter is ours.",
+                        3: "over yet? please.",
+                        4: "cuzzo.",
+                        5: "don't get fed.",
+                        6: " ",
+                        7: "",
+                        8: "done sometime",
+                        9: "project ever.",
+                        10: "is the goat."
+                        }.get(n, "Unknown fortune.")
+                    n = random.randint(1, 10)   # inclusive: can return 1 through 10
+                    
+                    lcd.lcd_string(fortune1(n), LCD_LINE_1)
+                    lcd.lcd_string(fortune2(n), LCD_LINE_2)
                     time.sleep(10)
                     app.mode = "none"
                     state = "waiting_for_card"
