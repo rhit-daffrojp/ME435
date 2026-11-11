@@ -11,8 +11,8 @@ reader = CustomRFID()
 
 # Replace these sample numbers with the actual IDs of your authorized cards
 AUTHORIZED_CARDS = [
-    123456789012,
-    987654321098
+    849516823339,
+    # 319668552350 WRONG ONE
 ]
 
 print("RFID Reader Ready. Hold a card near the reader (Press Ctrl+C to exit)...")
