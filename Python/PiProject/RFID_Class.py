@@ -27,6 +27,12 @@ class RFIDScanner:
         """Resets GPIO pins when shutting down."""
         GPIO.cleanup()
 
+    def scan_card_nonblocking(self):
+        card_id, _ = self.reader.read_no_block()   # (None, None) when no card present
+        if card_id is None:
+            return None, None
+        return card_id in self.authorized_cards, card_id
+
 
 # Optional: Only runs if you execute RFID_Scan.py directly for testing
 if __name__ == "__main__":
