@@ -31,13 +31,9 @@ class App:
 def main():
     print("Pi Project")
     app = App()
-    # button_pressed = False
 
     # 1. Initialize the scanner with your authorized card IDs
-    AUTHORIZED_IDS = [
-    849516823339,
-    # 319668552350 WRONG ONE
-    ]
+    AUTHORIZED_IDS = [849516823339]
 
     rfid = RFIDScanner(authorized_cards=AUTHORIZED_IDS, pin_rst=5)
 
@@ -61,7 +57,6 @@ def main():
                 is_valid, card_id = rfid.scan_card_nonblocking()
                 lcd.lcd_string("Scan Card", LCD_LINE_1)
                 lcd.lcd_string(" ", LCD_LINE_2)
-                app.mqtt_client.send_message("reset")
                 if card_id is not None:
                     print(f"Scanned Card ID: {card_id}")
                     if is_valid:
@@ -74,7 +69,8 @@ def main():
                         lcd.lcd_string("Payment Invalid", LCD_LINE_1)
                         lcd.lcd_string("Try again", LCD_LINE_2)
                         app.mqtt_client.send_message("payment", False)
-                        time.sleep(1)
+                        time.sleep(5)
+                        app.mqtt_client.send_message("reset")
 
             elif state == "waiting_for_button":
                 if app.mode == "button":
@@ -98,7 +94,7 @@ def main():
                         5: "Closed mouths",
                         6: "Yes",
                         7: "No",
-                        8: "Homework will get",
+                        8: "Homework will be",
                         9: "This is the best",
                         10: "Brady McCreamy"
                     }.get(n, "Unknown fortune.")
@@ -119,6 +115,7 @@ def main():
                     lcd.lcd_string(fortune1(n), LCD_LINE_1)
                     lcd.lcd_string(fortune2(n), LCD_LINE_2)
                     time.sleep(10)
+                    app.mqtt_client.send_message("reset")
                     app.mode = "none"
                     state = "waiting_for_card"
                     is_valid = False
